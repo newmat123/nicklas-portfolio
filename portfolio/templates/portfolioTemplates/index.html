@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block head_base %}
+<link rel="stylesheet" href="{% static '/portfolio/css/portfolio.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<div class='middlebox'>
+                
+    <img class='roundimg' src="{% static '/portfolio/imgs/me.jpg' %}">
+
+    <div class='boxright'>
+        <h1>Nicklas Pedersen</h1>
+        <h2>Webdeveloper,<br> programer and <br> designer</h2>
+    </div>
+</div>
+
+<script>
+    $(".roundimg").bind("webkitAnimationEnd mozAnimationEnd animationEnd", function(){
+        $(this).removeClass("animated");
+    })
+    $(".roundimg").hover(function(){
+        $(this).addClass("animated");        
+    })
+</script>
+{% endblock %}
+
+
+
+<!--
+
+<?php
+    session_start();
+?>
+
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>Home page</title>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css?version=6">
+  </head>
+
+
+
+  <body>
+    <section>
+        <ul>
+            <li><a href="">Home</a></li>
+            <li><a href="aboutme.php">About me</a></li>
+            <li><a href="projects.php">Projects</a></li>
+        </ul>   
+
+        <div class='middlebox'>
+            <?php 
+            $dir = "pictures/profile/*";
+            $image = glob( $dir );
+            if(count($image) < 1): ?>
+                <form action="upload.php" method='POST' enctype="multipart/form-data">
+                    <input type="file" name='file'>
+                    <button type='submit' name='submit' value='pictures/profile/'>Upload img</button>
+                </form>
+            <?php else: ?>
+                <?php if(isset($_SESSION['username'])): ?>
+                    <form action="process.php" method='POST'>
+                        <button type='submit' name='deletepic' value='pictures/profile/*'>delete pic</button>
+                    </form>
+                <?php endif; ?>
+                <img class='roundimg' src='<?php echo $image[0] ?>' >
+            <?php endif; ?>
+        
+        
+            <div class='boxright'>
+                <h1>Nicklas Pedersen</h1>
+                <h2>Webdeveloper,<br> programer and <br> designer</h2>
+            </div>
+        </div>
+
+    </section>
+
+    <footer>
+        <h2>Contack me</h2>
+        <h3>Phone - 41319170</h3>
+        <h3>Gmail - nicklas9211@gmail.com</h3>
+    </footer>
+
+    <script>
+        $(".roundimg").bind("webkitAnimationEnd mozAnimationEnd animationEnd", function(){
+            $(this).removeClass("animated");
+        })
+        $(".roundimg").hover(function(){
+            $(this).addClass("animated");        
+        })
+    </script>
+
+  </body>
+</html>
+
+-->

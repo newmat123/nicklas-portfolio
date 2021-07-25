@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>{% block title %}Home page{% endblock %}</title>
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<meta name="author" content="" />
+		{% block head_base %} {% endblock %}
+		<!--<link rel="stylesheet" href="{% static '/portfolio/css/portfolio.css' %}" />     gernerral style   -->
+        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	</head>
+
+	<body class="bg-white">
+        <section>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'aboutMe' %}">About me</a></li>
+                <li><a href="{% url 'projects' %}">Projects</a></li>
+            </ul>   
+    
+            {% block content %}{% endblock content %}
+    
+        </section>
+		
+	</body>
+
+	<footer class="">
+
+        <div class="">
+
+            <div class="">
+                <div class="">
+
+                    <h5 class="">om siden</h5>
+                    <p>
+                        Denne hjemmeside er udviklet med fokus på at gøre det letter
+                        for brandmændene i MSBR at holde styr på sin løn og timer.
+                        Skriv endelig ind, hvis du sidder inde
+                        med nogle forslag til forbedringer, eller har brug for hjælp.
+                    </p>
+                    <h6 class="">VIGTIGT!</h6>
+                    <p>
+                        Hjemmesiden er kun vejledende, og tager ikke højde for
+                        alle faktorer i forhold til den beregnede løn.
+                        Derudover er det ens eget ansvar at indtaste de korrekte informationer.
+                    </p>
+
+                </div>
+                <div class="">
+
+                    <h5 class="">Kontakt oplysninger</h5>
+                    <h6>tlf: 41319170</h6>
+                    <h6>Email: nicklas9211@gmail.com</h6>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="">
+            <div class="">
+                <small>Copyright &copy; <a href="https://newmat123.pythonanywhere.com/"> newmat123.pythonanywhere.com</a></small>
+            </div>
+        </div>
+
+    </footer>
+</html>

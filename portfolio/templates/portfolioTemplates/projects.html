@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}my projects{% endblock %}
+
+{% block head_base %}
+<link rel="stylesheet" href="{% static '/portfolio/css/portfolio.css' %}" />
+<style media="screen">
+       
+
+    #optionDisplay {
+        position: fixed;
+        display: none;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 2;
+    }
+
+
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class=''>
+    <h2>My projects</h2>
+    
+        
+    <div class="card">
+        <div class="face face1">
+            <div class="content">
+                <img src='#' alt="">
+                <h3><?php echo $row['name']; ?></h3>
+            </div>
+        </div>
+        <div class="face face2">
+            <div class="content">
+                <p><?php echo $row['text']; ?></p>
+                <a href="#">Go to github >></a>
+            </div>
+        </div>
+
+        
+        <form method='POST'>
+            <button name='edit' type='submit' class='addB' value='1' >edit</button>
+        </form>
+
+    </div>
+        
+
+   
+    <form method='POST'>
+        <button type='submit' name='addNewProject' class="addB">Add new project.</button>
+    </form>
+</div>
+
+<div id="optionDisplay">
+    <div class="optionPannel">
+
+        <form method='POST'>
+            <input type="file" name='file'>
+            <button type='submit' name='submit' value='pictures/uploads/'>Upload img</button>
+        </form>
+
+        <form method='POST'>
+
+            <button class="close" type='submit' name='close'>
+                <img class="close" src="pictures\close-icon.png">
+            </button>              
+
+            <div class='radiocontainer'>
+                <label>
+                    <input type="radio" name="radio1" value="1" checked>
+                    <img class="pic" src="#">
+                </label>
+                <button type='submit' name='deletepic' value='radio'>delete img</button>
+                    
+            </div>
+
+            <br>
+            <input id="pNT" type="text" name='name' placeholder="Project name" value='1'>
+            <br>
+            <input id="projectDiscribt" name='text' type="text" placeholder="Project discription" value='1'>
+            <br>
+            <input id="linktogithub" name='link' type="text" placeholder="Github link" value='1'>
+            <br>
+            
+            
+            <button type="submit" name="updateData" class="addB" >Update project</button>
+            <button type="submit" name="deleteData" class="addB" >Delete</button>
+            
+            <button type="submit" name="saveData" class="addB" >Submit project</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+<!--
+
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <title>Project page</title>
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css?version=1">
+    <style media="screen">
+       
+
+        #optionDisplay {
+            position: fixed;
+            
+            <?php if($_SESSION['open'] == true): ?>
+                display: block;
+            <?php else: ?>
+                display: none;
+            <?php endif; ?>
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2;
+        }
+
+
+    </style>
+
+  </head>
+
+
+
+  <body>
+    <section>
+
+        <ul>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="aboutme.php">About me</a></li>
+            <li><a href="">Projects</a></li>
+        </ul>   
+
+        <div class=''>
+            <h2>My projects</h2>
+            
+            <?php while ($row = $result->fetch_assoc()): 
+                ?>
+                
+                <div class="card">
+                    <div class="face face1">
+                        <div class="content">
+                            <img src='<?php echo $row['billede']; ?>' alt="">
+                            <h3><?php echo $row['name']; ?></h3>
+                        </div>
+                    </div>
+                    <div class="face face2">
+                        <div class="content">
+                            <p><?php echo $row['text']; ?></p>
+                            <a href="<?php echo $row['link']; ?>">Go to github >></a>
+                        </div>
+                    </div>
+
+                    <?php if(isset($_SESSION['username'])): ?>
+                        <form action="process.php" method='POST'>
+                            <button name='edit' type='submit' class='addB' value='<?php echo $row['id']; ?>' >edit</button>
+                        </form>
+                    <?php endif; ?>
+
+                </div>
+                
+            <?php endwhile; ?>
+
+            <?php if(isset($_SESSION['username'])): ?>
+                <form action="process.php" method='POST'>
+                    <button type='submit' name='addNewProject' class="addB">Add new project.</button>
+                </form>
+            <?php endif; ?>
+        </div>
+
+        
+        <footer>
+            <h2>Contack me</h2>
+            <h3>Phone - 41319170</h3>
+            <h3>Gmail - nicklas9211@gmail.com</h3>
+        </footer>
+
+        <div id="optionDisplay">
+            <div class="optionPannel">
+
+                <form action="upload.php" method='POST' enctype="multipart/form-data">
+                    <input type="file" name='file'>
+                    <button type='submit' name='submit' value='pictures/uploads/'>Upload img</button>
+                </form>
+
+                <form action="process.php" method='POST'>
+
+                    <button class="close" type='submit' name='close'>
+                        <img class="close" src="pictures\close-icon.png">
+                    </button>              
+
+                    <div class='radiocontainer'>
+                                    
+                        <?php 
+                        //gets all imgs from the folder
+                        $dir = "pictures/uploads/*";
+                        $images = glob( $dir );
+
+                        foreach( $images as $image ): ?>
+                            <label>
+                                <input type="radio" name="radio1" value="<?php echo $image ?>" checked>
+                                <img class="pic" src="<?php echo $image ?>">
+                            </label>
+                        <?php endforeach; ?>
+                        <button type='submit' name='deletepic' value='radio'>delete img</button>
+                            
+                    </div>
+
+                    <br>
+                    <input id="pNT" type="text" name='name' placeholder="Project name" value='<?php echo $_SESSION['name']; ?>'>
+                    <br>
+                    <input id="projectDiscribt" name='text' type="text" placeholder="Project discription" value='<?php echo $_SESSION['text']; ?>'>
+                    <br>
+                    <input id="linktogithub" name='link' type="text" placeholder="Github link" value='<?php echo $_SESSION['link']; ?>'>
+                    <br>
+                    
+                    
+                    <?php if($_SESSION['update'] == true): ?>
+                        <button type="submit" name="updateData" class="addB" >Update project</button>
+                        <button type="submit" name="deleteData" class="addB" >Delete</button>
+                    <?php else: ?>
+                        <button type="submit" name="saveData" class="addB" >Submit project</button>
+                    <?php endif; ?>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        $(".roundimg").bind("webkitAnimationEnd mozAnimationEnd animationEnd", function(){
+            $(this).removeClass("animated");
+        })
+        $(".roundimg").hover(function(){
+            $(this).addClass("animated");        
+        })
+    </script>
+
+  </body>
+</html>
+
+-->

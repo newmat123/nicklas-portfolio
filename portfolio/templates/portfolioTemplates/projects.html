@@ -4,97 +4,79 @@
 
 {% block head_base %}
 <link rel="stylesheet" href="{% static '/portfolio/css/portfolio.css' %}" />
-<style media="screen">
-       
-
-    #optionDisplay {
-        position: fixed;
-        display: none;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0,0,0,0.5);
-        z-index: 2;
-    }
-
-
-</style>
 {% endblock %}
 
 {% block content %}
 
 <div class=''>
-    <h2>My projects</h2>
-    
-        
-    <div class="card">
-        <div class="face face1">
-            <div class="content">
-                <img src='#' alt="">
-                <h3><?php echo $row['name']; ?></h3>
-            </div>
-        </div>
-        <div class="face face2">
-            <div class="content">
-                <p><?php echo $row['text']; ?></p>
-                <a href="#">Go to github >></a>
-            </div>
-        </div>
-
-        
-        <form method='POST'>
-            <button name='edit' type='submit' class='addB' value='1' >edit</button>
-        </form>
-
-    </div>
-        
-
-   
     <form method='POST'>
+        {% csrf_token %}
+
+        {% for i in cards%}
+            <div class="card">
+                <div class="face face1">
+                    <div class="content">
+                        <img src='#' alt="">
+                        <h3>oikjuyh</h3>
+                    </div>
+                </div>
+                <div class="face face2">
+                    <div class="content">
+                        <p>hggggg</p>
+                        <a href="#">Go to github >></a>
+                    </div>
+                </div>
+
+                {% if user.is_authenticated %}
+                    <button type='submit' name='editCard' class='addB' value='{{i}}' >edit</button>
+                {%endif%}
+            </div>
+        {%endfor%}
+
+        
         <button type='submit' name='addNewProject' class="addB">Add new project.</button>
     </form>
 </div>
 
-<div id="optionDisplay">
-    <div class="optionPannel">
+{%if displayPannel%}
+    <div id="optionDisplay">
+        <div class="optionPannel">
 
-        <form method='POST'>
-            <input type="file" name='file'>
-            <button type='submit' name='submit' value='pictures/uploads/'>Upload img</button>
-        </form>
-
-        <form method='POST'>
-
-            <button class="close" type='submit' name='close'>
-                <img class="close" src="pictures\close-icon.png">
-            </button>              
-
-            <div class='radiocontainer'>
-                <label>
-                    <input type="radio" name="radio1" value="1" checked>
-                    <img class="pic" src="#">
-                </label>
-                <button type='submit' name='deletepic' value='radio'>delete img</button>
-                    
-            </div>
-
-            <br>
-            <input id="pNT" type="text" name='name' placeholder="Project name" value='1'>
-            <br>
-            <input id="projectDiscribt" name='text' type="text" placeholder="Project discription" value='1'>
-            <br>
-            <input id="linktogithub" name='link' type="text" placeholder="Github link" value='1'>
-            <br>
+            <form method='POST'>
+                <input type="file" name='file'>
+                <button type='submit' name='submit' value='pictures/uploads/'>Upload img</button>
             
-            
-            <button type="submit" name="updateData" class="addB" >Update project</button>
-            <button type="submit" name="deleteData" class="addB" >Delete</button>
-            
-            <button type="submit" name="saveData" class="addB" >Submit project</button>
-        </form>
+
+                <button class="close" type='submit' name='close'>
+                    <img class="close" src="{% static '/portfolio/imgs/close-icon.png' %}">
+                </button>              
+
+                <div class='radiocontainer'>
+                    <label>
+                        <input type="radio" name="radio1" value="1" checked>
+                        <img class="pic" src="#">
+                    </label>
+                    <button type='submit' name='deletepic' value='radio'>delete img</button>
+                        
+                </div>
+
+                <br>
+                <input id="pNT" type="text" name='name' placeholder="Project name" value='1'>
+                <br>
+                <input id="projectDiscribt" name='text' type="text" placeholder="Project discription" value='1'>
+                <br>
+                <input id="linktogithub" name='link' type="text" placeholder="Github link" value='1'>
+                <br>
+                
+                
+                <button type="submit" name="updateData" class="addB" >Update project</button>
+                <button type="submit" name="deleteData" class="addB" >Delete</button>
+                
+                <button type="submit" name="saveData" class="addB" >Submit project</button>
+            </form>
+        </div>
     </div>
-</div>
+{%endif%}
 
 {% endblock %}
 

@@ -6,5 +6,21 @@ def index(request):
 def aboutMe(request):
     return render(request, 'portfolioTemplates/aboutMe.html', {})
 
+
+
+
 def projects(request):
-    return render(request, 'portfolioTemplates/projects.html', {})
+
+    cards = [1,2,3,4]
+    displayPannel = False
+
+
+    #virker ikke edit knap
+    if request.POST:
+        displayPannel = True
+
+
+    return render(request, 'portfolioTemplates/projects.html', {
+        'cards':cards,
+        'displayPannel':displayPannel,
+    })

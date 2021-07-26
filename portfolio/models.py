@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+class imgs(models.Model):
+    title = models.CharField(max_length=50)
+    img = models.ImageField(upload_to='langs/')

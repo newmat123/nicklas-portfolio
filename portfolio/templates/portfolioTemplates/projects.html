@@ -34,7 +34,7 @@
         {%endfor%}
 
         
-        <button type='submit' name='addNewProject' class="addB">Add new project.</button>
+        <button type='submit' name='addNewProject' class="addB" value="1">Add new project.</button>
     </form>
 </div>
 
@@ -42,9 +42,12 @@
     <div id="optionDisplay">
         <div class="optionPannel">
 
-            <form method='POST'>
-                <input type="file" name='file'>
-                <button type='submit' name='submit' value='pictures/uploads/'>Upload img</button>
+            <form method='POST' enctype="multipart/form-data">
+                {% csrf_token %}
+
+                {{imgform}}
+                
+                <button type='submit' name='uploadimg' value='1'>Upload img</button>
             
 
                 <button class="close" type='submit' name='close'>
@@ -52,11 +55,14 @@
                 </button>              
 
                 <div class='radiocontainer'>
-                    <label>
-                        <input type="radio" name="radio1" value="1" checked>
-                        <img class="pic" src="#">
-                    </label>
-                    <button type='submit' name='deletepic' value='radio'>delete img</button>
+                    {%for element in langimgs%}
+                        <label>
+                            <input type="radio" name="radio" value="{{ element }}" checked>
+                            <img class="pic" src="{{ element.img.url }}">
+                        </label>
+                    {%endfor%}
+
+                    <button type='submit' name='deleteimg' value='radio'>delete img</button>
                         
                 </div>
 
@@ -68,18 +74,18 @@
                 <input id="linktogithub" name='link' type="text" placeholder="Github link" value='1'>
                 <br>
                 
-                
-                <button type="submit" name="updateData" class="addB" >Update project</button>
-                <button type="submit" name="deleteData" class="addB" >Delete</button>
-                
-                <button type="submit" name="saveData" class="addB" >Submit project</button>
+                {%if edit%}
+                    <button type="submit" name="updateData" class="addB" >Update project</button>
+                    <button type="submit" name="deleteData" class="addB" >Delete</button>
+                {%else%}
+                    <button type="submit" name="saveData" class="addB" >Submit project</button>
+                {%endif%}
             </form>
         </div>
     </div>
 {%endif%}
 
 {% endblock %}
-
 
 
 <!--
